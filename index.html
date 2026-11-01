@@ -9,28 +9,32 @@
 body{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); min-height:100vh; padding:20px;}
 .box{max-width:500px; margin:0 auto; background:#fff; border-radius:20px; padding:25px;}
 h1{text-align:center; color:#667eea; margin-bottom:20px; font-size:22px;}
-.q{margin-bottom:18px; padding-bottom:15px; border-bottom:1px solid #eee;}
-.q-title{font-weight:bold; margin-bottom:10px; font-size:15px;}
-.opt{display:block; padding:10px 12px; margin:6px 0; border:2px solid #ddd; border-radius:8px; cursor:pointer; transition:.2s;}
+.q{margin-bottom:15px; padding-bottom:12px; border-bottom:1px solid #eee;}
+.q-title{font-weight:bold; margin-bottom:8px; font-size:15px;}
+.opt{display:block; padding:10px 12px; margin:5px 0; border:2px solid #ddd; border-radius:8px; cursor:pointer; transition:.2s;}
 .opt:hover{border-color:#667eea; background:#f0f4ff;}
 .opt.chked{border-color:#667eea; background:#f0f4ff;}
 button{width:100%; padding:14px; background:linear-gradient(90deg,#667eea,#764ba2); color:#fff; border:none; border-radius:10px; font-size:17px; font-weight:bold; cursor:pointer; margin-top:10px;}
 button:hover{opacity:.9;}
 button.green{background:#22c55e;}
+button.gray{background:#9ca3af;}
+button.small{padding:10px; font-size:15px; width:auto;}
 .hidden{display:none !important;}
 input{width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; font-size:15px; margin:10px 0;}
-.rank-item{padding:10px 12px; border-radius:8px; background:#f8f9fa; margin-bottom:8px; display:flex; justify-content:space-between;}
+.rank-item{padding:12px 14px; border-radius:8px; background:#f8f9fa; margin-bottom:8px; display:flex; justify-content:space-between;}
 .rank-top{background:#fffbeb; border-left:3px solid #f59e0b;}
 .tips{color:#666; font-size:14px; text-align:center; margin-top:10px;}
+.btn-group{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:15px;}
+.rank-box{background:#fef9e7; padding:15px; border-radius:12px; margin-bottom:20px; border:2px dashed #f59e0b;}
 </style>
 </head>
 <body>
 <div class="box">
 
-<!-- ===== 创建测试页 ===== -->
+<!-- ===== 创建页：设置答案 + 生成链接 ===== -->
 <div id="page-create">
   <h1>⚙️ 设置你的答案</h1>
-  <p class="tips">每题选好你的答案 → 点最下面按钮生成链接</p>
+  <p class="tips">选好10题 → 生成链接发给朋友</p>
 
   <div class="q">
     <div class="q-title">1. 我最喜欢的水果是？</div>
@@ -100,37 +104,56 @@ input{width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; font-s
 
   <button id="btn-create">✨ 生成分享链接</button>
   <div id="link-area" class="hidden" style="margin-top:15px; padding:15px; background:#f0fdf4; border-radius:10px;">
-    <p style="color:#166534; font-weight:bold;">✅ 复制链接发给朋友：</p>
+    <p style="color:#166534; font-weight:bold;">✅ 发给朋友：</p>
     <input id="share-link" type="text" readonly>
-    <button class="green" id="btn-copy">📋 一键复制链接</button>
+    <div class="btn-group">
+      <button class="green small" id="btn-copy">📋 复制链接</button>
+      <button class="gray small" id="btn-go-rank">🏆 查看排行榜</button>
+    </div>
   </div>
 </div>
 
-<!-- ===== 答题页 ===== -->
+<!-- ===== 答题页 / 看榜页 ===== -->
 <div id="page-quiz" class="hidden">
-  <h1>🤝 好友默契测试</h1>
-  <p class="tips">猜猜TA的答案是什么 共10题</p>
-  <div style="margin-bottom:15px;">
-    <label style="font-weight:bold;">你的昵称：</label>
-    <input id="u-name" type="text" placeholder="输入你的名字" maxlength="10">
+  <h1 id="quiz-title">🤝 好友默契测试</h1>
+  
+  <!-- 快捷看榜区：进来就看到，不用答题 -->
+  <div id="quick-rank-box" class="rank-box hidden">
+    <h3 style="text-align:center; margin-bottom:10px; color:#d97706;">🏆 好友排行榜</h3>
+    <div id="quick-rank-list"></div>
+    <div class="btn-group" style="margin-top:10px;">
+      <button class="small" id="btn-go-quiz">✏️ 去答题</button>
+      <button class="gray small" onclick="location.reload()">🔄 刷新</button>
+    </div>
   </div>
-  <div id="q-container"></div>
-  <button id="btn-submit">📤 提交看结果 + 上榜</button>
-</div>
 
-<!-- ===== 结果页 ===== -->
-<div id="page-result" class="hidden">
-  <h1>🎉 测试结果</h1>
-  <div style="text-align:center; padding:25px; background:#f8f9ff; border-radius:12px; margin-bottom:20px;">
-    <div style="font-size:48px; font-weight:bold; color:#667eea;" id="u-score">0</div>
-    <div style="font-size:18px; color:#666; margin-top:5px;">/10 分</div>
-    <p style="margin-top:10px; font-size:16px;" id="u-msg"></p>
+  <!-- 答题区 -->
+  <div id="quiz-area" class="hidden">
+    <div style="margin-bottom:15px;">
+      <label style="font-weight:bold;">你的昵称：</label>
+      <input id="u-name" type="text" placeholder="输入你的名字" maxlength="10">
+    </div>
+    <div id="q-container"></div>
+    <div class="btn-group">
+      <button id="btn-submit">📤 提交看结果</button>
+      <button class="gray" id="btn-only-rank">🏆 只看排行榜</button>
+    </div>
   </div>
-  <h3 style="margin-bottom:10px;">🏆 好友排行榜</h3>
-  <div id="rank-list" style="margin-bottom:20px;">
-    <p class="tips">暂无数据</p>
+
+  <!-- 结果页 -->
+  <div id="result-area" class="hidden" style="margin-top:20px;">
+    <div style="text-align:center; padding:25px; background:#f8f9ff; border-radius:12px; margin-bottom:20px;">
+      <div style="font-size:48px; font-weight:bold; color:#667eea;" id="u-score">0</div>
+      <div style="font-size:18px; color:#666;">/10 分</div>
+      <p style="margin-top:10px; font-size:16px;" id="u-msg"></p>
+    </div>
+    <h3 style="margin-bottom:10px;">🏆 好友排行榜</h3>
+    <div id="result-rank-list"></div>
+    <div class="btn-group" style="margin-top:15px;">
+      <button onclick="location.reload()">🔄 返回重新答题</button>
+      <button class="gray" id="btn-result-rank">🏆 只看排行榜</button>
+    </div>
   </div>
-  <button onclick="location.href=location.pathname">🔄 返回首页</button>
 </div>
 
 </div>
@@ -171,8 +194,9 @@ const QLIST = [
 
 let correctAns = {};
 let rankKey = '';
+let currentHash = '';
 
-// ===== 选项点击高亮 =====
+// 选项高亮
 document.querySelectorAll('.opt').forEach(lbl=>{
   lbl.addEventListener('click', function(){
     const r = this.querySelector('input[type=radio]');
@@ -183,7 +207,7 @@ document.querySelectorAll('.opt').forEach(lbl=>{
   });
 });
 
-// ===== 生成链接按钮 =====
+// 生成链接
 document.getElementById('btn-create').addEventListener('click', function(){
   let allDone = true;
   correctAns = {};
@@ -192,51 +216,68 @@ document.getElementById('btn-create').addEventListener('click', function(){
     if(!sel){ allDone = false; return; }
     correctAns[q.id] = sel.value;
   });
-  if(!allDone){
-    alert('⚠️ 请先把所有题目选完！');
-    return;
-  }
-  const code = btoa(JSON.stringify(correctAns));
-  rankKey = 'rank_' + code;
-  const fullLink = location.pathname + '#' + code;
+  if(!allDone){ alert('⚠️ 请先选完所有题目！'); return; }
+  
+  currentHash = btoa(JSON.stringify(correctAns));
+  rankKey = 'rank_' + currentHash;
+  const fullLink = window.location.href.split('#')[0] + '#' + currentHash;
   document.getElementById('share-link').value = fullLink;
   document.getElementById('link-area').classList.remove('hidden');
-  alert('✅ 成功！下面复制链接发给朋友吧~');
+  alert('✅ 成功！复制链接发给朋友吧~');
 });
 
-// ===== 复制链接 =====
+// 复制链接
 document.getElementById('btn-copy').addEventListener('click', function(){
-  const text = document.getElementById('share-link');
-  text.select();
-  try{
-    navigator.clipboard.writeText(text.value).then(()=>alert('✅ 链接已复制！直接发给朋友就行！'));
-  }catch(e){
-    document.execCommand('copy');
-    alert('✅ 已复制！');
-  }
+  const val = document.getElementById('share-link').value;
+  navigator.clipboard.writeText(val).then(()=>alert('✅ 已复制！'));
 });
 
-// ===== 检查是否是答题模式 =====
+// 创建页：直接看排行榜
+document.getElementById('btn-go-rank').addEventListener('click', function(){
+  if(!currentHash){ alert('⚠️ 请先生成链接！'); return; }
+  showQuickRank();
+});
+
+// 页面加载：检测hash
 window.addEventListener('load', function(){
   const hash = window.location.hash.slice(1);
-  if(hash && hash.length>10){
+  if(hash && hash.length > 10){
     try{
       correctAns = JSON.parse(atob(hash));
+      currentHash = hash;
       rankKey = 'rank_' + hash;
-      showPage('quiz');
-      renderQuiz();
+      document.getElementById('page-create').classList.add('hidden');
+      document.getElementById('page-quiz').classList.remove('hidden');
+      
+      // 优先显示排行榜
+      showQuickRank();
     }catch(e){}
   }
 });
 
-function showPage(name){
-  document.getElementById('page-create').classList.toggle('hidden', name!=='create');
-  document.getElementById('page-quiz').classList.toggle('hidden', name!=='quiz');
-  document.getElementById('page-result').classList.toggle('hidden', name!=='result');
+// 显示快捷排行榜
+function showQuickRank(){
+  document.getElementById('quiz-title').textContent = '🏆 好友排行榜';
+  document.getElementById('quick-rank-box').classList.remove('hidden');
+  document.getElementById('quiz-area').classList.add('hidden');
+  document.getElementById('result-area').classList.add('hidden');
+  renderRankList('quick-rank-list');
 }
 
-// ===== 渲染答题页 =====
-function renderQuiz(){
+// 去答题
+document.getElementById('btn-go-quiz').addEventListener('click', initQuiz);
+
+// 只看排行榜按钮
+document.getElementById('btn-only-rank').addEventListener('click', showQuickRank);
+document.getElementById('btn-result-rank').addEventListener('click', showQuickRank);
+
+// 初始化答题
+function initQuiz(){
+  document.getElementById('quiz-title').textContent = '🤝 好友默契测试';
+  document.getElementById('quick-rank-box').classList.add('hidden');
+  document.getElementById('quiz-area').classList.remove('hidden');
+  document.getElementById('result-area').classList.add('hidden');
+  
   const container = document.getElementById('q-container');
   container.innerHTML = '';
   QLIST.forEach(q=>{
@@ -258,7 +299,7 @@ function renderQuiz(){
   });
 }
 
-// ===== 提交答案 =====
+// 提交答案
 document.getElementById('btn-submit').addEventListener('click', function(){
   const name = document.getElementById('u-name').value.trim();
   if(!name){ alert('请输入你的昵称！'); return; }
@@ -270,33 +311,43 @@ document.getElementById('btn-submit').addEventListener('click', function(){
   });
   if(!done){ alert('请答完所有题目！'); return; }
   
-  saveResult(name, score);
-  showPage('result');
+  saveScore(name, score);
+  
+  document.getElementById('quiz-area').classList.add('hidden');
+  document.getElementById('result-area').classList.remove('hidden');
   document.getElementById('u-score').textContent = score;
+  
   let msg = '';
-  if(score===10) msg = '🏆 满分！神仙友谊！';
-  else if(score>=8) msg = '💖 超默契！最佳好友！';
-  else if(score>=6) msg = '😊 还不错，多聊聊更了解~';
-  else if(score>=4) msg = '😅 革命尚未成功，常约饭！';
-  else msg = '💔 有空多见面，友谊万岁！';
+  if(score === 10) msg = '💯 满分！神仙友谊！';
+  else if(score >= 8) msg = '💖 超有默契！';
+  else if(score >= 6) msg = '😊 还不错，多聚聚！';
+  else if(score >= 4) msg = '😅 要多联系哦！';
+  else msg = '❤️ 有空多见面，友谊万岁！';
   document.getElementById('u-msg').textContent = msg;
-  showRank();
+  
+  renderRankList('result-rank-list');
 });
 
-// ===== 排行榜 =====
-function saveResult(name, score){
+// 保存分数
+function saveScore(name, score){
   let list = JSON.parse(localStorage.getItem(rankKey) || '[]');
-  list.push({n:name, s:score, t:Date.now()});
-  list.sort((a,b)=>b.s - a.s || a.t - b.t);
+  list.push({n: name, s: score, t: Date.now()});
+  list.sort((a, b) => b.s - a.s || a.t - b.t);
   localStorage.setItem(rankKey, JSON.stringify(list));
 }
-function showRank(){
+
+// 渲染排行榜
+function renderRankList(containerId){
   const list = JSON.parse(localStorage.getItem(rankKey) || '[]');
-  const c = document.getElementById('rank-list');
-  if(list.length===0){ c.innerHTML='<p class="tips">暂无数据</p>'; return; }
-  c.innerHTML = list.map((item,i)=>{
-    const cls = i===0 ? 'rank-item rank-top' : 'rank-item';
-    return `<div class="${cls}"><span>${i+1}. ${item.n}</span><span><strong>${item.s}</strong>/10</span></div>`;
+  const c = document.getElementById(containerId);
+  if(list.length === 0){
+    c.innerHTML = '<p class="tips">暂无数据，等朋友来答题吧！</p>';
+    return;
+  }
+  c.innerHTML = list.map((item, i) => {
+    const cls = i === 0 ? 'rank-item rank-top' : 'rank-item';
+    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+    return `<div class="${cls}"><span>${medal} ${item.n}</span><span style="font-weight:bold; color:#667eea;">${item.s}/10</span></div>`;
   }).join('');
 }
 </script>
