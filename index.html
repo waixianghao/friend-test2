@@ -18,8 +18,8 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       padding: 20px;
-      max-width: 500px;
-      width: 90%;
+      max-width: 600px;
+      width: 95%;
     }
     button {
       background: #6a11cb;
@@ -36,6 +36,7 @@
     ul { list-style: none; padding: 0; }
     li { margin: 5px 0; }
     .hidden { display: none; }
+    .question { margin: 12px 0; }
   </style>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
@@ -48,16 +49,83 @@
     <div id="createPage">
       <form id="createForm">
         <h3>创建测试题目</h3>
-        <div class="question" data-q="q1">问题1: <input type="text" required></div>
-        <div class="question" data-q="q2">问题2: <input type="text" required></div>
-        <div class="question" data-q="q3">问题3: <input type="text" required></div>
-        <div class="question" data-q="q4">问题4: <input type="text" required></div>
-        <div class="question" data-q="q5">问题5: <input type="text" required></div>
-        <div class="question" data-q="q6">问题6: <input type="text" required></div>
-        <div class="question" data-q="q7">问题7: <input type="text" required></div>
-        <div class="question" data-q="q8">问题8: <input type="text" required></div>
-        <div class="question" data-q="q9">问题9: <input type="text" required></div>
-        <div class="question" data-q="q10">问题10: <input type="text" required></div>
+
+        <!-- 10道题 -->
+        <div class="question" data-q="q1">
+          1. 我最喜欢的水果是？<br>
+          <label><input type="radio" name="q1" value="A"> 🍎 苹果</label><br>
+          <label><input type="radio" name="q1" value="B"> 🍌 香蕉</label><br>
+          <label><input type="radio" name="q1" value="C"> 🍊 橙子</label><br>
+          <label><input type="radio" name="q1" value="D"> 🍓 草莓</label>
+        </div>
+
+        <div class="question" data-q="q2">
+          2. 休息时我更喜欢？<br>
+          <label><input type="radio" name="q2" value="A"> 🏠 宅家放空</label><br>
+          <label><input type="radio" name="q2" value="B"> 🚶 出门逛逛</label><br>
+          <label><input type="radio" name="q2" value="C"> 😊 看心情决定</label>
+        </div>
+
+        <div class="question" data-q="q3">
+          3. 难过时我想要？<br>
+          <label><input type="radio" name="q3" value="A"> 🫂 有人陪我说话</label><br>
+          <label><input type="radio" name="q3" value="B"> 🌿 一个人静一静</label><br>
+          <label><input type="radio" name="q3" value="C"> 🍔 吃顿好吃的</label>
+        </div>
+
+        <div class="question" data-q="q4">
+          4. 我更喜欢的时间段？<br>
+          <label><input type="radio" name="q4" value="A"> ☀️ 白天</label><br>
+          <label><input type="radio" name="q4" value="B"> 🌙 夜晚</label>
+        </div>
+
+        <div class="question" data-q="q5">
+          5. 我更偏爱？<br>
+          <label><input type="radio" name="q5" value="A"> 🍬 甜食</label><br>
+          <label><input type="radio" name="q5" value="B"> 🌶️ 辣的</label><br>
+          <label><input type="radio" name="q5" value="C"> 🧂 咸的</label><br>
+          <label><input type="radio" name="q5" value="D"> 🍋 酸的</label>
+        </div>
+
+        <div class="question" data-q="q6">
+          6. 空闲时我喜欢？<br>
+          <label><input type="radio" name="q6" value="A"> 📱 刷手机/看剧</label><br>
+          <label><input type="radio" name="q6" value="B"> 🎮 玩游戏</label><br>
+          <label><input type="radio" name="q6" value="C"> 📖 听歌/看书</label><br>
+          <label><input type="radio" name="q6" value="D"> 🧗 出门运动</label>
+        </div>
+
+        <div class="question" data-q="q7">
+          7. 我更害怕？<br>
+          <label><input type="radio" name="q7" value="A"> 🐛 虫子</label><br>
+          <label><input type="radio" name="q7" value="B"> 🕷️ 蜘蛛</label><br>
+          <label><input type="radio" name="q7" value="C"> 👻 黑夜里一个人</label><br>
+          <label><input type="radio" name="q7" value="D"> 😰 被人冷落</label>
+        </div>
+
+        <div class="question" data-q="q8">
+          8. 理想的周末是？<br>
+          <label><input type="radio" name="q8" value="A"> 😌 睡个懒觉</label><br>
+          <label><input type="radio" name="q8" value="B"> 🎉 和朋友出去玩</label><br>
+          <label><input type="radio" name="q8" value="C"> ☕ 做点喜欢的事</label><br>
+          <label><input type="radio" name="q8" value="D"> 🧹 整理/打扫</label>
+        </div>
+
+        <div class="question" data-q="q9">
+          9. 生气时我会？<br>
+          <label><input type="radio" name="q9" value="A"> 😤 直接说出来</label><br>
+          <label><input type="radio" name="q9" value="B"> 😐 先冷静一下</label><br>
+          <label><input type="radio" name="q9" value="C"> 🥺 不想说话</label>
+        </div>
+
+        <div class="question" data-q="q10">
+          10. 我更喜欢的天气？<br>
+          <label><input type="radio" name="q10" value="A"> ☀️ 晴天</label><br>
+          <label><input type="radio" name="q10" value="B"> ☁️ 阴天</label><br>
+          <label><input type="radio" name="q10" value="C"> 🌧️ 下雨天</label><br>
+          <label><input type="radio" name="q10" value="D"> ❄️ 下雪天</label>
+        </div>
+
         <button type="submit">生成测试</button>
       </form>
       <div id="links"></div>
@@ -89,113 +157,4 @@
   // Firebase 初始化
   const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT.firebaseio.com",
-    projectId: "YOUR_PROJECT",
-  };
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-
-  // 页面路由判断
-  const params = new URLSearchParams(location.search);
-  const room = params.get("room");
-  const isAdmin = params.get("admin");
-
-  if (room && isAdmin) {
-    document.getElementById("createPage").classList.add("hidden");
-    document.getElementById("quizPage").classList.add("hidden");
-    document.getElementById("adminPage").classList.remove("hidden");
-    document.getElementById("pageTitle").innerText = "好友默契测试 - 管理";
-    initAdmin(room);
-  } else if (room) {
-    document.getElementById("createPage").classList.add("hidden");
-    document.getElementById("quizPage").classList.remove("hidden");
-    document.getElementById("adminPage").classList.add("hidden");
-    document.getElementById("pageTitle").innerText = "好友默契测试 - 答题";
-    initQuiz(room);
-  } else {
-    document.getElementById("createPage").classList.remove("hidden");
-    document.getElementById("quizPage").classList.add("hidden");
-    document.getElementById("adminPage").classList.add("hidden");
-    document.getElementById("pageTitle").innerText = "好友默契测试 - 创建";
-    initCreate();
-  }
-
-  // 创建页面逻辑
-  function initCreate() {
-    document.getElementById("createForm").addEventListener("submit", e => {
-      e.preventDefault();
-      const roomId = Date.now().toString();
-      const answers = {};
-      document.querySelectorAll(".question").forEach(q => {
-        answers[q.dataset.q] = q.querySelector("input").value;
-      });
-      db.ref("rooms/" + roomId + "/answers").set(answers);
-      document.getElementById("links").innerHTML = `
-        答题链接: <a href="?room=${roomId}">?room=${roomId}</a><br>
-        管理链接: <a href="?room=${roomId}&admin=true">?room=${roomId}&admin=true</a>
-      `;
-    });
-  }
-
-  // 答题页面逻辑
-  function initQuiz(roomId) {
-    const lb = document.getElementById("leaderboard");
-    db.ref("rooms/" + roomId + "/scores").on("value", snap => {
-      lb.innerHTML = "";
-      const scores = snap.val() || {};
-      Object.entries(scores).sort((a,b)=>b[1]-a[1]).forEach(([name,score])=>{
-        lb.innerHTML += `<li>${name}: ${score}</li>`;
-      });
-    });
-
-    document.getElementById("startBtn").onclick = () => {
-      document.getElementById("quizArea").classList.remove("hidden");
-      // 生成答题表单
-      db.ref("rooms/" + roomId + "/answers").once("value").then(snap=>{
-        const answers = snap.val();
-        const form = document.getElementById("quizForm");
-        form.innerHTML = "";
-        Object.keys(answers).forEach(q=>{
-          form.innerHTML += `<div>${q}: <input type="text" name="${q}" required></div>`;
-        });
-      });
-    };
-
-    document.getElementById("quizForm").onsubmit = e => {
-      e.preventDefault();
-      const nickname = document.getElementById("nickname").value;
-      let score = 0;
-      const formData = new FormData(e.target);
-      db.ref("rooms/" + roomId + "/answers").once("value").then(snap=>{
-        const correct = snap.val();
-        for (let [q, ans] of formData.entries()) {
-          if (ans === correct[q]) score++;
-        }
-        db.ref("rooms/" + roomId + "/scores/" + nickname).set(score);
-        document.getElementById("result").innerText = `你的分数: ${score}`;
-      });
-    };
-  }
-
-  // 管理页面逻辑
-  function initAdmin(roomId) {
-    const adminBoard = document.getElementById("adminBoard");
-    db.ref("rooms/" + roomId + "/scores").on("value", snap => {
-      adminBoard.innerHTML = "";
-      const scores = snap.val() || {};
-      Object.entries(scores).forEach(([name,score])=>{
-        adminBoard.innerHTML += `<li>${name}: ${score}</li>`;
-      });
-    });
-
-    document.getElementById("refreshBtn").onclick = () => location.reload();
-    document.getElementById("resetBtn").onclick = () => {
-      if (confirm("确定要重置排行榜吗？")) {
-        db.ref("rooms/" + roomId + "/scores").remove();
-      }
-    };
-  }
-</script>
-</body>
-</html>
+    authDomain: "YOUR_PROJECT.firebase
