@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🤝 好友默契测试</title>
+<style>
+*{margin:0; padding:0; box-sizing:border-box; font-family: sans-serif;}
+body{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); min-height:100vh; padding:20px;}
+.box{max-width:500px; margin:0 auto; background:#fff; border-radius:20px; padding:25px;}
+h1{text-align:center; color:#667eea; margin-bottom:20px; font-size:22px;}
+.q{margin-bottom:18px; padding-bottom:15px; border-bottom:1px solid #eee;}
+.q-title{font-weight:bold; margin-bottom:10px; font-size:15px;}
+.opt{display:block; padding:10px 12px; margin:6px 0; border:2px solid #ddd; border-radius:8px; cursor:pointer; transition:.2s;}
+.opt:hover{border-color:#667eea; background:#f0f4ff;}
+.opt.chked{border-color:#667eea; background:#f0f4ff;}
+button{width:100%; padding:14px; background:linear-gradient(90deg,#667eea,#764ba2); color:#fff; border:none; border-radius:10px; font-size:17px; font-weight:bold; cursor:pointer; margin-top:10px;}
+button:hover{opacity:.9;}
+button.green{background:#22c55e;}
+.hidden{display:none !important;}
+input{width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; font-size:15px; margin:10px 0;}
+.rank-item{padding:10px 12px; border-radius:8px; background:#f8f9fa; margin-bottom:8px; display:flex; justify-content:space-between;}
+.rank-top{background:#fffbeb; border-left:3px solid #f59e0b;}
+.tips{color:#666; font-size:14px; text-align:center; margin-top:10px;}
+</style>
+</head>
+<body>
+<div class="box">
+
+<!-- ===== 创建测试页 ===== -->
+<div id="page-create">
+  <h1>⚙️ 设置你的答案</h1>
+  <p class="tips">每题选好你的答案 → 点最下面按钮生成链接</p>
+
+  <div class="q">
+    <div class="q-title">1. 我最喜欢的水果是？</div>
+    <label class="opt"><input type="radio" name="q1" value="A"> 🍎 苹果</label>
+    <label class="opt"><input type="radio" name="q1" value="B"> 🍌 香蕉</label>
+    <label class="opt"><input type="radio" name="q1" value="C"> 🍊 橙子</label>
+    <label class="opt"><input type="radio" name="q1" value="D"> 🍓 草莓</label>
+  </div>
+  <div class="q">
+    <div class="q-title">2. 休息时我更喜欢？</div>
+    <label class="opt"><input type="radio" name="q2" value="A"> 🏠 宅家放空</label>
+    <label class="opt"><input type="radio" name="q2" value="B"> 🚶 出门逛逛</label>
+    <label class="opt"><input type="radio" name="q2" value="C"> 😊 看心情决定</label>
+  </div>
+  <div class="q">
+    <div class="q-title">3. 我难过时更想要？</div>
+    <label class="opt"><input type="radio" name="q3" value="A"> 🫂 有人陪我说话</label>
+    <label class="opt"><input type="radio" name="q3" value="B"> 🌿 一个人静一静</label>
+    <label class="opt"><input type="radio" name="q3" value="C"> 🍔 吃顿好吃的</label>
+  </div>
+  <div class="q">
+    <div class="q-title">4. 我更喜欢哪个时间段？</div>
+    <label class="opt"><input type="radio" name="q4" value="A"> ☀️ 白天</label>
+    <label class="opt"><input type="radio" name="q4" value="B"> 🌙 夜晚</label>
+  </div>
+  <div class="q">
+    <div class="q-title">5. 我更偏爱哪种口味？</div>
+    <label class="opt"><input type="radio" name="q5" value="A"> 🍬 甜</label>
+    <label class="opt"><input type="radio" name="q5" value="B"> 🌶️ 辣</label>
+    <label class="opt"><input type="radio" name="q5" value="C"> 🧂 咸</label>
+    <label class="opt"><input type="radio" name="q5" value="D"> 🍋 酸</label>
+  </div>
+  <div class="q">
+    <div class="q-title">6. 我更常怎么打发时间？</div>
+    <label class="opt"><input type="radio" name="q6" value="A"> 📱 刷手机/看剧</label>
+    <label class="opt"><input type="radio" name="q6" value="B"> 🎮 玩游戏</label>
+    <label class="opt"><input type="radio" name="q6" value="C"> 📖 听歌/看书</label>
+    <label class="opt"><input type="radio" name="q6" value="D"> 🧗 出门运动</label>
+  </div>
+  <div class="q">
+    <div class="q-title">7. 我更害怕？</div>
+    <label class="opt"><input type="radio" name="q7" value="A"> 🐛 虫子</label>
+    <label class="opt"><input type="radio" name="q7" value="B"> 🕷️ 蜘蛛</label>
+    <label class="opt"><input type="radio" name="q7" value="C"> 👻 黑夜里一个人</label>
+    <label class="opt"><input type="radio" name="q7" value="D"> 😰 被人冷落</label>
+  </div>
+  <div class="q">
+    <div class="q-title">8. 我理想的周末是？</div>
+    <label class="opt"><input type="radio" name="q8" value="A"> 😌 睡个懒觉</label>
+    <label class="opt"><input type="radio" name="q8" value="B"> 🎉 和朋友出去玩</label>
+    <label class="opt"><input type="radio" name="q8" value="C"> ☕ 做点自己喜欢的事</label>
+    <label class="opt"><input type="radio" name="q8" value="D"> 🧹 整理/打扫</label>
+  </div>
+  <div class="q">
+    <div class="q-title">9. 我生气时会？</div>
+    <label class="opt"><input type="radio" name="q9" value="A"> 😤 直接说出来</label>
+    <label class="opt"><input type="radio" name="q9" value="B"> 😐 先沉默冷静下</label>
+    <label class="opt"><input type="radio" name="q9" value="C"> 🥺 会有点委屈想哭</label>
+  </div>
+  <div class="q">
+    <div class="q-title">10. 我更喜欢哪种天气？</div>
+    <label class="opt"><input type="radio" name="q10" value="A"> ☀️ 晴天</label>
+    <label class="opt"><input type="radio" name="q10" value="B"> ☁️ 阴天</label>
+    <label class="opt"><input type="radio" name="q10" value="C"> 🌧️ 下雨天</label>
+    <label class="opt"><input type="radio" name="q10" value="D"> ❄️ 下雪天</label>
+  </div>
+
+  <button id="btn-create">✨ 生成分享链接</button>
+  <div id="link-area" class="hidden" style="margin-top:15px; padding:15px; background:#f0fdf4; border-radius:10px;">
+    <p style="color:#166534; font-weight:bold;">✅ 复制链接发给朋友：</p>
+    <input id="share-link" type="text" readonly>
+    <button class="green" id="btn-copy">📋 一键复制链接</button>
+  </div>
+</div>
+
+<!-- ===== 答题页 ===== -->
+<div id="page-quiz" class="hidden">
+  <h1>🤝 好友默契测试</h1>
+  <p class="tips">猜猜TA的答案是什么 共10题</p>
+  <div style="margin-bottom:15px;">
+    <label style="font-weight:bold;">你的昵称：</label>
+    <input id="u-name" type="text" placeholder="输入你的名字" maxlength="10">
+  </div>
+  <div id="q-container"></div>
+  <button id="btn-submit">📤 提交看结果 + 上榜</button>
+</div>
+
+<!-- ===== 结果页 ===== -->
+<div id="page-result" class="hidden">
+  <h1>🎉 测试结果</h1>
+  <div style="text-align:center; padding:25px; background:#f8f9ff; border-radius:12px; margin-bottom:20px;">
+    <div style="font-size:48px; font-weight:bold; color:#667eea;" id="u-score">0</div>
+    <div style="font-size:18px; color:#666; margin-top:5px;">/10 分</div>
+    <p style="margin-top:10px; font-size:16px;" id="u-msg"></p>
+  </div>
+  <h3 style="margin-bottom:10px;">🏆 好友排行榜</h3>
+  <div id="rank-list" style="margin-bottom:20px;">
+    <p class="tips">暂无数据</p>
+  </div>
+  <button onclick="location.href=location.pathname">🔄 返回首页</button>
+</div>
+
+</div>
+
+<script>
+const QLIST = [
+  {id:'q1', title:'1. TA最喜欢的水果是？', opts:[
+    {v:'A',t:'🍎 苹果'},{v:'B',t:'🍌 香蕉'},{v:'C',t:'🍊 橙子'},{v:'D',t:'🍓 草莓'}
+  ]},
+  {id:'q2', title:'2. 休息时TA更喜欢？', opts:[
+    {v:'A',t:'🏠 宅家放空'},{v:'B',t:'🚶 出门逛逛'},{v:'C',t:'😊 看心情决定'}
+  ]},
+  {id:'q3', title:'3. TA难过时更想要？', opts:[
+    {v:'A',t:'🫂 有人陪我说话'},{v:'B',t:'🌿 一个人静一静'},{v:'C',t:'🍔 吃顿好吃的'}
+  ]},
+  {id:'q4', title:'4. TA更喜欢哪个时间段？', opts:[
+    {v:'A',t:'☀️ 白天'},{v:'B',t:'🌙 夜晚'}
+  ]},
+  {id:'q5', title:'5. TA更偏爱哪种口味？', opts:[
+    {v:'A',t:'🍬 甜'},{v:'B',t:'🌶️ 辣'},{v:'C',t:'🧂 咸'},{v:'D',t:'🍋 酸'}
+  ]},
+  {id:'q6', title:'6. TA更常怎么打发时间？', opts:[
+    {v:'A',t:'📱 刷手机/看剧'},{v:'B',t:'🎮 玩游戏'},{v:'C',t:'📖 听歌/看书'},{v:'D',t:'🧗 出门运动'}
+  ]},
+  {id:'q7', title:'7. TA更害怕？', opts:[
+    {v:'A',t:'🐛 虫子'},{v:'B',t:'🕷️ 蜘蛛'},{v:'C',t:'👻 黑夜里一个人'},{v:'D',t:'😰 被人冷落'}
+  ]},
+  {id:'q8', title:'8. TA理想的周末是？', opts:[
+    {v:'A',t:'😌 睡个懒觉'},{v:'B',t:'🎉 和朋友出去玩'},{v:'C',t:'☕ 做点自己喜欢的事'},{v:'D',t:'🧹 整理/打扫'}
+  ]},
+  {id:'q9', title:'9. TA生气时会？', opts:[
+    {v:'A',t:'😤 直接说出来'},{v:'B',t:'😐 先沉默冷静下'},{v:'C',t:'🥺 会有点委屈想哭'}
+  ]},
+  {id:'q10', title:'10. TA更喜欢哪种天气？', opts:[
+    {v:'A',t:'☀️ 晴天'},{v:'B',t:'☁️ 阴天'},{v:'C',t:'🌧️ 下雨天'},{v:'D',t:'❄️ 下雪天'}
+  ]}
+];
+
+let correctAns = {};
+let rankKey = '';
+
+// ===== 选项点击高亮 =====
+document.querySelectorAll('.opt').forEach(lbl=>{
+  lbl.addEventListener('click', function(){
+    const r = this.querySelector('input[type=radio]');
+    if(!r) return;
+    document.querySelectorAll(`input[name=${r.name}]`).forEach(i=>i.closest('.opt').classList.remove('chked'));
+    this.classList.add('chked');
+    r.checked = true;
+  });
+});
+
+// ===== 生成链接按钮 =====
+document.getElementById('btn-create').addEventListener('click', function(){
+  let allDone = true;
+  correctAns = {};
+  QLIST.forEach(q=>{
+    const sel = document.querySelector(`input[name=${q.id}]:checked`);
+    if(!sel){ allDone = false; return; }
+    correctAns[q.id] = sel.value;
+  });
+  if(!allDone){
+    alert('⚠️ 请先把所有题目选完！');
+    return;
+  }
+  const code = btoa(JSON.stringify(correctAns));
+  rankKey = 'rank_' + code;
+  const fullLink = location.pathname + '#' + code;
+  document.getElementById('share-link').value = fullLink;
+  document.getElementById('link-area').classList.remove('hidden');
+  alert('✅ 成功！下面复制链接发给朋友吧~');
+});
+
+// ===== 复制链接 =====
+document.getElementById('btn-copy').addEventListener('click', function(){
+  const text = document.getElementById('share-link');
+  text.select();
+  try{
+    navigator.clipboard.writeText(text.value).then(()=>alert('✅ 链接已复制！直接发给朋友就行！'));
+  }catch(e){
+    document.execCommand('copy');
+    alert('✅ 已复制！');
+  }
+});
+
+// ===== 检查是否是答题模式 =====
+window.addEventListener('load', function(){
+  const hash = window.location.hash.slice(1);
+  if(hash && hash.length>10){
+    try{
+      correctAns = JSON.parse(atob(hash));
+      rankKey = 'rank_' + hash;
+      showPage('quiz');
+      renderQuiz();
+    }catch(e){}
+  }
+});
+
+function showPage(name){
+  document.getElementById('page-create').classList.toggle('hidden', name!=='create');
+  document.getElementById('page-quiz').classList.toggle('hidden', name!=='quiz');
+  document.getElementById('page-result').classList.toggle('hidden', name!=='result');
+}
+
+// ===== 渲染答题页 =====
+function renderQuiz(){
+  const container = document.getElementById('q-container');
+  container.innerHTML = '';
+  QLIST.forEach(q=>{
+    let html = `<div class="q"><div class="q-title">${q.title}</div>`;
+    q.opts.forEach(o=>{
+      html += `<label class="opt"><input type="radio" name="u_${q.id}" value="${o.v}"> ${o.t}</label>`;
+    });
+    html += `</div>`;
+    container.innerHTML += html;
+  });
+  container.querySelectorAll('.opt').forEach(lbl=>{
+    lbl.addEventListener('click', function(){
+      const r = this.querySelector('input[type=radio]');
+      if(!r) return;
+      container.querySelectorAll(`input[name=${r.name}]`).forEach(i=>i.closest('.opt').classList.remove('chked'));
+      this.classList.add('chked');
+      r.checked = true;
+    });
+  });
+}
+
+// ===== 提交答案 =====
+document.getElementById('btn-submit').addEventListener('click', function(){
+  const name = document.getElementById('u-name').value.trim();
+  if(!name){ alert('请输入你的昵称！'); return; }
+  let score = 0, done = true;
+  QLIST.forEach(q=>{
+    const sel = document.querySelector(`input[name=u_${q.id}]:checked`);
+    if(!sel){ done = false; return; }
+    if(sel.value === correctAns[q.id]) score++;
+  });
+  if(!done){ alert('请答完所有题目！'); return; }
+  
+  saveResult(name, score);
+  showPage('result');
+  document.getElementById('u-score').textContent = score;
+  let msg = '';
+  if(score===10) msg = '🏆 满分！神仙友谊！';
+  else if(score>=8) msg = '💖 超默契！最佳好友！';
+  else if(score>=6) msg = '😊 还不错，多聊聊更了解~';
+  else if(score>=4) msg = '😅 革命尚未成功，常约饭！';
+  else msg = '💔 有空多见面，友谊万岁！';
+  document.getElementById('u-msg').textContent = msg;
+  showRank();
+});
+
+// ===== 排行榜 =====
+function saveResult(name, score){
+  let list = JSON.parse(localStorage.getItem(rankKey) || '[]');
+  list.push({n:name, s:score, t:Date.now()});
+  list.sort((a,b)=>b.s - a.s || a.t - b.t);
+  localStorage.setItem(rankKey, JSON.stringify(list));
+}
+function showRank(){
+  const list = JSON.parse(localStorage.getItem(rankKey) || '[]');
+  const c = document.getElementById('rank-list');
+  if(list.length===0){ c.innerHTML='<p class="tips">暂无数据</p>'; return; }
+  c.innerHTML = list.map((item,i)=>{
+    const cls = i===0 ? 'rank-item rank-top' : 'rank-item';
+    return `<div class="${cls}"><span>${i+1}. ${item.n}</span><span><strong>${item.s}</strong>/10</span></div>`;
+  }).join('');
+}
+</script>
+</body>
+  </html>
+  
